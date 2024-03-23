@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Poems to Vidya from Vidhaan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body style="background-color: #006400;">
+  <div class="navigator">
+    <nav class="navbar bg-body-primary">
+      <form class="container-fluid justify-content-start">
+        <button class="btn btn-danger" type="button" id="generatePoemBtn">Generate Poem</button>
+      </form>
+    </nav>
+  </div>
+ 
+  <div class="heading">
+    <h1 style="padding: 10px;"></h1>
+    <h1>Poems to Vidya from Vidhaan</h1>
+  </div>
+
+  <div class="container">
+    <div class="limbo">
+      <div class="container">
+        <div class="container"> 
+          <h1 style="padding: 30px;"></h1>   
+          <div class="login" id="poemDisplay" style="height: 200px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer mt-auto py-3 bg-dark-green text-center">
+    <div class="container">
+      <span class="text-white">Love from Vidhaan ❤️ Vidya</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById('generatePoemBtn').addEventListener('click', function() {
+      fetch('poems.json')
+        .then(response => response.json())
+        .then(data => {
+          const poems = data.poems;
+          const randomPoem = poems[Math.floor(Math.random() * poems.length)];
+          const poemDisplay = document.getElementById('poemDisplay');
+          poemDisplay.innerHTML = `<div class="poem-content">
+                                      <p>${randomPoem.lines.join('<br>')}</p>
+                                    </div>`;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
+  <style>
+    .heading {
+      text-align: center;
+      font-style: normal;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 20px;
+      padding-bottom: 50px;
+      color: #fff;
+    }
+    .navigator {
+      background-color: #e9ecef;
+    }
+    .login {
+      outline: #adb5bd solid 1px;
+      border-radius: 10px;
+      width: 400px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+      color: #000;
+      background-color: #fff;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+    }
+    .footer {
+      color: #fff;
+    }
+    .bg-dark-green {
+      background-color: #006400;
+    }
+    .poem-content {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      flex: 1;
+    }
+  </style>
+</body>
+</html>
+
